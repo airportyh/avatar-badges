@@ -2,8 +2,9 @@
 
 const request = require('request-promise')
 const co = require('co')
-const token = require('slack.json').token
+const token = require('config.json').slack_token
 const url = `https://slack.com/api/channels.list?token=${token}`
+const saveImage = require('./lib/save_image')
 
 co(function *(){
   const reply = yield request(url)
@@ -12,7 +13,7 @@ co(function *(){
     return ch.name === 'javascript'
   })[0]
   const jsMembers = javascript.members
-  for (let i = 0; i < jsMembers.length; i++){
+  for (const userId of jsMembers){
     const userId = jsMembers[i]
     const url = `https://slack.com/api/users.info?token=${token}&user=${userId}`
     const user = JSON.parse(yield request(url)).user
@@ -24,17 +25,3 @@ co(function *(){
   console.log(err.stack)
 })
 
-const fs = require('fs')
-const _request = require('request')
-function saveImage(url, filepath){
-  return new Promise(function(resolve, reject){
-    const out = fs.createWriteStream(filepath)
-    _request(url).pipe(out)
-    out.on('close', function(){
-      resolve(null)
-    })
-    out.on('error', function(err){
-      reject(err)
-    })
-  })
-}

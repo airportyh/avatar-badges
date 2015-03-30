@@ -1,1 +1,4 @@
-use widthOfString to measure text and automatically layout everything in the optimally spread-out way
+* meetup avatars crop to always get a square
+* use widthOfString to measure text and automatically layout everything in the optimally spread-out way
+* twitter integration
+* easy gravatar script

@@ -1,3 +1,6 @@
 /node_modules
-/slack.json
+/config.json
 /slack
+/meetup_api.sh
+/*.pdf
+/meetup
